@@ -1,0 +1,18 @@
+﻿@charset "UTF-8";
+
+@font-face {
+	font-family: 'AgencyFB';
+	src:url('../fonts/AgencyFB-Bold.eot');
+	src:local(※), url('../fonts/AgencyFB-Bold.woff') format('woff');
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'RobotoCondensed';
+	src:url('../fonts/RobotoCondensed-Regular.eot');
+	src:local(※), url('../fonts/RobotoCondensed-Regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+

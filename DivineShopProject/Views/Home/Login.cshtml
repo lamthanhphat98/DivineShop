@@ -1,0 +1,50 @@
+﻿
+@model DivineShopProject.Models.User;
+@using Microsoft.AspNetCore.Http;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Login Page</title>
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="clo-sm-10" style="width:600px;margin-left:250px;margin-top:50px;">
+            <div class="jumbotron" style="padding-left:20px;height:270px;background-color:silver">
+                <div class="form-group" style="margin-top:-50px;">
+                    <img src="~/images/banner.png" style="width:30%;margin-left:38%;margin-top:10%;border-radius:5px">
+                </div>
+                <form class="form-horizontal" style="margin-left:50px;" asp-controller="Home" asp-action="Login" method="post">
+                    <div class="form-group input-group">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-user">
+                            </span>
+                        </span>
+                        <input class="form-control" placeholder="Enter Username..." required asp-for="Username" />
+                    </div>
+                    <div class="form-group input-group">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-lock">
+                            </span>
+                        </span>
+                        <input type="password" class="form-control" placeholder="Enter Password..." required asp-for="Password" />
+                    </div>
+                    <div class="form-group ">
+                        <button class="btn btn-primary" type="submit" style="width:500px;"> Login </button>
+                    </div>
+                    <div class="form-group ">
+                        <a style="width:500px;" asp-action="RetakePassword" asp-controller="Home">Forgot password ?</a>
+                    </div>
+                </form>
+                <font color="red">
+                    <span>
+                        @Context.Session.GetString("ERRORLOGIN")
+                    </span>
+                </font>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

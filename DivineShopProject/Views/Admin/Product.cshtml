@@ -1,0 +1,316 @@
+﻿@using DivineShopProject.Models
+@model IEnumerable<Product>
+@using Microsoft.AspNetCore.Http;
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+    #top-links {
+        height: 80px !important;
+        margin-right: 150px;
+        padding-bottom: 80px !important;
+    }
+
+    ul {
+        list-style: none
+    }
+</style>
+<style>
+    .title {
+        color: yellow;
+        border-color: white
+    }
+
+    .textcolor {
+        color: silver;
+    }
+
+    #footer .social {
+        text-align: center;
+        padding: 12px 0 0;
+        margin: 0 !important;
+    }
+
+    #card:hover {
+        -webkit-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+        -moz-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+        box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+        border-color: greenyellow;
+    }
+
+    #card {
+        border-color: black;
+    }
+
+    h2, h1, h3, h4 {
+        color: white;
+    }
+
+    .color {
+        color: lawngreen;
+    }
+
+    #content {
+        min-height: 400px;
+    }
+
+    #column-left {
+        border-right: 0px;
+        border-right: 1px solid #eee;
+    }
+
+    #container {
+        margin-right: auto;
+        margin-left: auto;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .wrapper-box {
+        background: #191919;
+    }
+
+    .bigshop-banner div img {
+        width: 100%;
+        height: auto;
+        display: block;
+        opacity: 1;
+        transition: all .3s ease-in-out;
+    }
+
+    .bigshop-banner > div.row div {
+        margin-bottom: 25px;
+    }
+
+    #menu {
+        background: #444;
+        border: 0;
+        margin-bottom: 0;
+    }
+
+    .hoverclass ul li:hover {
+        background-color: silver;
+    }
+
+    .hoverclass ul ul {
+        display: none;
+    }
+
+    .hoverclass ul li:hover > ul {
+        display: block;
+    }
+
+    .slider-wrapper {
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .nivoSlider {
+        position: relative;
+        width: 100%;
+        height: auto;
+        margin-left: 15px;
+    }
+
+    #border {
+        border-color: black;
+    }
+
+    #header {
+        padding: 0;
+    }
+
+        #header .header-row {
+            padding: 15px 0;
+        }
+
+    .table-container {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    #header #search input {
+        background: #FFF;
+        padding: 0 36px 0 10px;
+        height: 36px;
+        font-size: 13px;
+        color: #333;
+        outline: 0;
+        display: block;
+        border-radius: 4px;
+    }
+
+    .input-group .form-control {
+        position: relative;
+        z-index: 2;
+        float: left;
+        width: 100%;
+        margin-bottom: 0px;
+    }
+
+    #header #search {
+        position: relative;
+        display: block;
+    }
+
+    * {
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    #header .button-search {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+        z-index: 3;
+        position: absolute;
+        right: 0;
+        cursor: pointer;
+        float: right;
+        background: 0 0;
+        border: none;
+        color: #bbb;
+        padding: 0;
+        border-radius: 0 4px 4px 0;
+    }
+
+    #header #search input {
+        background-color: #292929;
+    }
+
+    #header #search input {
+        border-color: #2E1F04;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    .custom-feature-box .feature-box {
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        text-align: center;
+        padding: 10px;
+        margin-bottom: 20px;
+        margin-left: 10px;
+        width: 80%;
+        height: 120px;
+    }
+</style>
+<div id="header">
+    <div id="search" class="input-group">
+        <ul id="listproduct" class="tabs clearfix" style="list-style:none;">
+            <li class="active"><a href="#" class="btn btn-default btn-lg disable" style="background-color:black;color:yellow">@ViewBag.Title</a></li>
+        </ul>
+        <div class="col-table-cel col-md-3 col-sm-4 col-xs-12 inner" style="margin-top: 50px">
+
+            <div class="col-md-5 col-md-pull-4 col-sm-8 col-xs-12 inner2" style="margin-left:350px">
+                <div id="search" class="input-group" style="width:479px;margin-top:-50px;   ">
+                    <form asp-controller="Admin" asp-action="Product" method="post">
+                        <input id="filter_name" type="text" name="search" placeholder="Tìm kiếm" class="form-control input-lg ac_input" autocomplete="off" style="color:white" required>
+                        <button type="submit" class="button-search"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="top-links" class="nav pull-right flip">
+            <ul style="color:white;" class="font-italic">
+                @if (Context.Session.GetString("Admin") != null)
+                {
+                    <li>
+                        Welcome,<font color="yellow">
+                            @Context.Session.GetString("Admin")
+                        </font>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                    </li>
+
+                }
+            </ul>
+        </div>
+
+    </div>
+</div>
+<style>
+    #paging-number.pagination a {
+        width: 30px !important;
+        height: 30px !important;
+        line-height: 15px !important;
+        text-align: center;
+    }
+
+    #listproduct {
+        font-size: 50px;
+        color: yellow;
+        margin-left: 34%;
+    }
+</style>
+<table border="1" style="border-color:white;color:silver;width:800px; text-align: center;margin-top:100px;margin-left:150px;" class="tblProduct">
+    <thead>
+        <tr style="background-color: rgba(100, 100, 100, 0.6)">
+            <th>
+                Mã game
+            </th>
+            <th>
+                Tên game
+            </th>
+            <th>
+                Hình
+            </th>
+            <th style="text-align: right">
+                Đơn giá
+            </th>
+            <th style="text-align: right">
+                Sale
+            </th>
+            <th style="text-align: center">
+                Update
+            </th>
+            <th style="text-align: center">
+                Delete
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>
+                    @product.Id
+                </td>
+                <td>
+                    @product.Name
+                </td>
+                <td>
+                    <img src="@product.Picture" style="width: 100px; height: 100px" />
+                </td>
+
+                <td>
+                    @product.Price.ToString("0,0")
+                </td>
+                <td>
+                    @product.Sale.ToString()%
+                </td>
+                <td><a class="btn btn-info" asp-area="" asp-controller="Admin" asp-action="UpdateProduct" asp-route-id="@product.Id">Edit</a></td>
+                <td><a class="btn btn-danger" asp-area="" asp-controller="Admin" asp-action="RemoveProduct" asp-route-id="@product.Id">Delete</a></td>
+            </tr>
+
+        }
+
+
+
+
+    </tbody>
+
+</table>
+

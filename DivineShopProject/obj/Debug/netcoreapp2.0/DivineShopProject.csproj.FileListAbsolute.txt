@@ -1,0 +1,11 @@
+C:\Users\ADMIN\source\repos\DivineShopProject\DivineShopProject\bin\Debug\netcoreapp2.0\DivineShopProject.deps.json
+C:\Users\ADMIN\source\repos\DivineShopProject\DivineShopProject\bin\Debug\netcoreapp2.0\DivineShopProject.runtimeconfig.json
+C:\Users\ADMIN\source\repos\DivineShopProject\DivineShopProject\bin\Debug\netcoreapp2.0\DivineShopProject.runtimeconfig.dev.json
+C:\Users\ADMIN\source\repos\DivineShopProject\DivineShopProject\bin\Debug\netcoreapp2.0\DivineShopProject.dll
+C:\Users\ADMIN\source\repos\DivineShopProject\DivineShopProject\obj\Debug\netcoreapp2.0\DivineShopProject.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\source\repos\DivineShopProject\DivineShopProject\obj\Debug\netcoreapp2.0\DivineShopProject.AssemblyInfoInputs.cache
+C:\Users\ADMIN\source\repos\DivineShopProject\DivineShopProject\obj\Debug\netcoreapp2.0\DivineShopProject.AssemblyInfo.cs
+C:\Users\ADMIN\source\repos\DivineShopProject\DivineShopProject\bin\Debug\netcoreapp2.0\DivineShopProject.pdb
+C:\Users\ADMIN\source\repos\DivineShopProject\DivineShopProject\obj\Debug\netcoreapp2.0\DivineShopProject.dll
+C:\Users\ADMIN\source\repos\DivineShopProject\DivineShopProject\obj\Debug\netcoreapp2.0\DivineShopProject.pdb
+C:\Users\ADMIN\source\repos\DivineShopProject\DivineShopProject\obj\Debug\netcoreapp2.0\DivineShopProject.csprojAssemblyReference.cache

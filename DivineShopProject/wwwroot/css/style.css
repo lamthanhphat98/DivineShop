@@ -1,0 +1,33 @@
+﻿@charset "UTF-8";
+
+* {margin: 0; padding: 0;}
+html, body {height: 100%;}
+ul, li {list-style: none;}
+a {text-decoration: none;}
+body {background-color: #414141;  line-height: 1.2;}
+img {vertical-align: top;}
+
+#wrapper {}
+#wrapper .content {
+	position: absolute; top: 50%; left: 50%; margin: -177px 0 0 -440px;
+	width: 880px; height: 354px; background: url('https://api.pubg.io/images/twitch-bg.jpg') center 0 no-repeat; text-align: center;
+}
+#wrapper .content a {
+
+	box-sizing: border-box; display: inline-block; width: 288px; height: 48px; margin-top: 26px; padding: 12px 0 0 0; line-height: 1; vertical-align: top;
+	border: 1px solid #6d6d6d; border-radius: 3px; transition: 0.4s; font-size: 24px; color: #b0b0b0; font-weight: 500; background-color: #0c0c0c;
+}
+
+dl {text-align: center;}
+dl dt {font-family: 'AgencyFB'; font-weight: 700; color: #fdc600; font-size: 52px;}
+dl dd {font-family: 'RobotoCondensed'; font-weight: 400; color: #fff; font-size: 30px;}
+
+
+.error dt {padding-top: 50px;}
+.error dd {padding-top: 75px;}
+
+.success dt {padding-top: 50px;}
+.success dd {padding-top: 45px;}
+
+
+

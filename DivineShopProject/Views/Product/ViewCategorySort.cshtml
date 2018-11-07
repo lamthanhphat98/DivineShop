@@ -1,0 +1,543 @@
+﻿@using DivineShopProject.Models
+@model IEnumerable<Product>
+@using Microsoft.AspNetCore.Http;
+
+
+@{
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        .price {
+            margin: 10px 0;
+            color: #f15a23;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .saving {
+            background: red;
+            border-radius: 3px;
+            color: #FFF;
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            height: 25px;
+            line-height: 25px;
+            position: absolute;
+            right: 20px;
+            text-align: center;
+            top: 12px;
+            min-width: 35px;
+            max-width: 50px;
+            padding: 0 2px;
+        }
+
+        .product-filter {
+            border-bottom: 1px solid #000000;
+            background: #444;
+            padding: 6px 5px;
+            line-height: 25px;
+            margin-left: 15px;
+            padding-top: 18px;
+            padding-bottom: 2px;
+            text-align: center;
+            width: 95%;
+        }
+
+        #card:hover {
+            -webkit-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+            -moz-box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+            box-shadow: -1px 9px 40px -12px rgba(0,0,0,0.75);
+            border-color: greenyellow;
+        }
+
+        #card {
+            border-color: black;
+        }
+
+        h2, h1, h3, h4 {
+            color: white;
+        }
+
+        .color {
+            color: lawngreen;
+        }
+
+        #content {
+            min-height: 400px;
+        }
+
+        #column-left {
+            border-right: 0px;
+            border-right: 1px solid #eee;
+        }
+
+        #container {
+            margin-right: auto;
+            margin-left: auto;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .wrapper-box {
+            background: #191919;
+        }
+
+        .bigshop-banner div img {
+            width: 100%;
+            height: auto;
+            display: block;
+            opacity: 1;
+            transition: all .3s ease-in-out;
+        }
+
+        .bigshop-banner > div.row div {
+            margin-bottom: 25px;
+        }
+
+        #menu {
+            background: #444;
+            border: 0;
+            margin-bottom: 0;
+        }
+
+        .hoverclass ul li:hover {
+            background-color: silver;
+        }
+
+        .hoverclass ul ul {
+            display: none;
+        }
+
+        .hoverclass ul li:hover > ul {
+            display: block;
+        }
+
+        .slider-wrapper {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .nivoSlider {
+            position: relative;
+            width: 100%;
+            height: auto;
+            margin-left: 15px;
+        }
+
+        #border {
+            border-color: black;
+        }
+
+        #header {
+            padding: 0;
+        }
+
+            #header .header-row {
+                padding: 15px 0;
+            }
+
+        .table-container {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        #header #search input {
+            background: #FFF;
+            padding: 0 36px 0 10px;
+            height: 36px;
+            font-size: 13px;
+            color: #333;
+            outline: 0;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .input-group .form-control {
+            position: relative;
+            z-index: 2;
+            float: left;
+            width: 100%;
+            margin-bottom: 0px;
+        }
+
+        #header #search {
+            position: relative;
+            display: block;
+        }
+
+        * {
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        #header .button-search {
+            width: 36px;
+            height: 36px;
+            font-size: 14px;
+            z-index: 3;
+            position: absolute;
+            right: 0;
+            cursor: pointer;
+            float: right;
+            background: 0 0;
+            border: none;
+            color: #bbb;
+            padding: 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        #header #search input {
+            background-color: #292929;
+        }
+
+        #header #search input {
+            border-color: #2E1F04;
+        }
+
+        ul {
+            list-style: none;
+        }
+    </style>
+
+    <div id="header">
+        <header class="header-row">
+            <div class="container">
+
+                <div class="table-container">
+                    <nav class="htop col-md-9 pull-right flip inner" id="top">
+                        <a asp-action="ShowAll" asp-controller="Product" style="font-size:18px;color: green;font-family: Tahoma,Geneva,sans-serif;margin-left:150px;">Xem tất cả sản phẩm</a>
+                        <div id="top-links" class="nav pull-right flip">
+                            <strong>
+                                <ul style="color:white;" class="font-italic">
+                                    @if (Context.Session.GetString("Username") != null)
+                                    {
+                                        <li>
+                                            <a asp-action="AddMoreCash" asp-controller="Home" style="text-decoration-line:none">
+                                                <img src="https://cdn1.iconfinder.com/data/icons/toolbar-signs/512/create-512.png" width="20px" />
+                                            </a>
+                                            @if (@Context.Session.GetString("CASH").ToString().Equals("00"))
+                                            {
+                                                <strong><span class="color">Số Dư : 0</span></strong>
+
+                                            }
+                                            else
+                                            {
+                                                <strong><span class="color">Số Dư : @Context.Session.GetString("CASH") VNĐ</span></strong>
+
+                                            }
+                                            @*<strong><span class="color">Số Dư : @Context.Session.GetString("CASH")</span></strong>*@
+                                            <a asp-action="Infor" asp-controller="Home">
+                                                @Context.Session.GetString("Username")<i class="fa fa-caret-down"></i>
+                                            </a>
+                                            <a asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                                        </li>
+
+
+                                    }
+                                    else
+                                    {
+
+
+                                        <li>
+                                            <a asp-area="" asp-controller="Home" style="color:silver;background-color:black;margin-left:25px;" asp-action="Login">Login</a>
+                                        </li>
+
+
+                                        <li>   <a asp-area="" asp-controller="Home" style="color:silver;background-color:black;margin-left:25px;" asp-action="Register">Register</a></li>
+
+                                    }
+
+
+                                </ul>
+
+                                <div class="col-md-9 pull-right flip col-sm-4 col-xs-12 inner" style="width:100%;color:white;">
+                                    <div id="cart" style="margin-left:30px;">
+
+                                        <i class="fa fa-cart-plus" style="color:orange"></i>     <span id="cart-total">
+                                            @Context.Session.GetString("CART") sản phẩm -
+                                            @if (@Context.Session.GetString("TOTAL").ToString().Equals("00"))
+                                            {
+                                                <span>
+                                                    0 VNĐ
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span>
+                                                    @Context.Session.GetString("TOTAL") VNĐ
+                                                </span>
+                                            }
+                                        </span>
+
+                                    </div>
+                                    <div style="width:150px;margin-left:30px;">
+                                        <a asp-area="" asp-controller="Product" asp-action="Cart" asp-route-search="Giỏ Hàng">
+                                            <input id="filter_name" type="hidden" name="search" placeholder="Tìm kiếm" class="form-control input-lg ac_input" autocomplete="off" style="color:white" required>
+
+                                            <i class="fa fa-money" style="font-size:20px;">
+
+                                            </i>
+
+                                        </a>
+                                        <i class="font-italic">
+                                            Thanh Toán
+                                        </i>
+                                    </div>
+
+                                </div>
+                            </strong>
+
+
+                        </div>
+
+                        <div class="pull-right flip left-top">
+                            <div class="links">
+                                <ul></ul>
+                            </div>
+                        </div>
+                    </nav>
+                    <div class="col-table-cel col-md-3 col-sm-4 col-xs-12 inner">
+                        <div id="logo" style="padding-top:10px;"><a asp-action="List" asp-controller="Product"><img class="img-responsive" src="https://divineshop.vn/image/catalog/home/Logo.png" title="Divine Shop" alt="Divine Shop"></a></div>
+                        <div class="col-md-5 col-md-pull-4 col-sm-8 col-xs-12 inner2" style="margin-left:350px">
+                            <div id="search" class="input-group" style="width:479px;margin-top:-50px;   ">
+                                <form asp-controller="Product" asp-action="Search" method="post">
+                                    <input id="filter_name" type="text" name="search" placeholder="Tìm kiếm" class="form-control input-lg ac_input" autocomplete="off" style="color:white" required>
+                                    <button type="submit" class="button-search"><i class="fa fa-search"></i></button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+    <section class="wrapper-box">
+        <div class="container" style="padding-top:20px;padding-right:50px;">
+            <div class="navbar-header" style="width:88%;margin-left:70px;">
+
+                <style>
+                    #menu > span {
+                        height: 100% !important;
+                        display: inline-block;
+                    }
+
+                    #menu .menu-item {
+                        border-right: 1px solid #ccc;
+                        padding: 13px 10px;
+                        font-size: 0.7em;
+                        font-weight: bold;
+                        opacity: 0.9;
+                        height: 100% !important;
+                        display: inline-block;
+                    }
+                </style>
+                <nav id="menu" class="navbar" style="height: 20px">
+                    <span style="margin-left:20%;font-size:20px;" class="font-italic">
+                        <a asp-action="List" asp-controller="Product" class="menu-item">
+                            <i class="glyphicon glyphicon-home" style="color:white">
+                            </i>
+                        </a>
+                        <a asp-action="Category" asp-controller="Product" class="menu-item">
+                            <span style="color:white" class="hoverclass">
+                                Thể loại
+                            </span>
+                        </a>
+                        <a asp-action="ViewCategory" asp-controller="Product" asp-route-search="Steam" class="menu-item">
+                            <span style="color:white">
+                                Steam
+                            </span>
+                        </a>
+                        <a asp-action="ViewCategory" asp-controller="Product" asp-route-search="Origin" class="menu-item">
+                            <span style="color:white">
+                                Origin
+                            </span>
+                        </a>
+                        <a asp-action="Menu" asp-controller="Product" asp-route-search="PUBG" class="menu-item">
+                            <span style="color:white">
+                                PUBG
+                            </span>
+                        </a>
+                        <a asp-action="Menu" asp-controller="Product" asp-route-search="wallet" class="menu-item">
+                            <span style="color:white">
+                                Steam wallet
+                            </span>
+                        </a>
+                        <a asp-action="InforAboutUs" asp-controller="Product" asp-route-search="Thông tin" class="menu-item">
+                            <span style="color:white">
+                                Thông tin
+                            </span>
+                        </a>
+                    </span>
+                </nav>
+            </div>
+        </div>
+        <div id="container" style="padding-top:20px;">
+            <div class="container" style="height:auto;">
+                <ul class="breadcrumb" style="width:11%;padding-right:10px;color:silver;width:20%;background-color:#191919">
+                    <li><i class="fa fa-home"></i></li>
+                    <li>@ViewData["Name"]</li>
+                </ul>
+                <div class="row">
+                    <aside id="column-left" class="col-sm-3 hidden-xs" style="border-color:black">
+                        <style>
+                            #bigshop-banner0 .moderns img {
+                                border: 3px solid black !important;
+                                background-color: black;
+                            }
+                        </style>
+                        <div id="bigshop-banner0" class="bigshop-banner ">
+                            <div class="row" style="width:250px;" id="border">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 moderns"><a href="#"><img src="https://divineshop.vn/image/cache/catalog/banner/Banner%20299k%20pubg%20(nho)-512x512.png" alt="Sale PUBG" title="Sale PUBG" class="img-thumbnail"></a></div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 moderns"><a href="#"><img src="https://divineshop.vn/image/cache/catalog/thẻ%20điện%20thoại/123-512x512.png" alt="Nạp Sò" title="Nạp Sò" class="img-thumbnail"></a></div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 moderns"><a href="#"><img src="https://divineshop.vn/image/cache/catalog/banner/danh-sach-dai-ly-512x512.png" alt="Danh Sách Đại Lý" title="Danh Sách Đại Lý" class="img-thumbnail"></a></div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 moderns"><a href="#"><img src="https://divineshop.vn/image/cache/catalog/banner/banner-vip-512x512.png" alt="Khách hàng VIP" title="Khách hàng VIP" class="img-thumbnail"></a></div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 moderns"><a href="#"><img src="https://divineshop.vn/image/cache/catalog/home/Banner-3-512x512.png" alt="Hướng Dẫn Mua Hàng" title="Hướng Dẫn Mua Hàng" class="img-thumbnail"></a></div>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <div id="content" class="col-sm-9" style="padding-right:50px;">
+
+                        <div class="product-filter" style="border-radius:10px">
+                            <div class="row">
+                                <div class="col-md-4" style="margin-left:20px;"></div>
+                                <div class="col-md-4">
+                                    <div class="form-group input-group input-group-sm" style="margin-left:50px;">
+                                        <form asp-action="ViewCategorySort" asp-controller="Product" class="form-inline">
+                                            <div style="width:150%;margin-left:20px;margin-top:1.5px;height:10%">
+                                                <span style="padding: 4.5px; background-color: white; float: left;">Sắp xếp theo:</span>
+                                                <select id="input-sort" name="option" class="form-control" asp-items="@ViewBag.SelectedList" style="background-color:black;color:silver;width:150px; margin-left: 0px"></select>
+                                                <button class="btn-primary" type="submit" style="background-color:black; border-color:black;border-radius:5px;height:30px;width:50px;margin-left:150px; float: right; margin-top: -30px">
+                                                    <i class="glyphicon glyphicon-ok">
+                                                    </i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @foreach (var product in Model)
+                        {
+                            <div class="product-grid col-sm-4 col-lg-4 col-md-4 col-xs-6" style="margin-top:50px;">
+                                <div class="thumbnail" id="card" style="background-color:black;">
+
+
+                                    <a asp-action="ShowDetail" asp-controller="Product" asp-route-id="@product.Id">
+                                        <img src="@product.Picture" alt="" />
+                                    </a>
+
+                                    <div class="caption">
+
+                                        <p class="price">
+                                            <span class="color">
+                                                @(((product.Price - (product.Price * product.Sale) / 100)).ToString("0,0"))
+                                            </span>
+                                            <span class="color" style="color:red;margin-left:50px;text-decoration:line-through">
+                                                @product.Price.ToString("0,0")
+                                            </span>
+
+                                            <span class="saving">@product.Sale.ToString()%</span>
+                                        </p>
+                                        <a><h4>@product.Name</h4></a>
+
+                                    </div>
+                                    <div class="button-group text-center">
+
+                                        <a asp-action="Store" asp-controller="Product" asp-route-id="@product.Id" asp-route-quantity="1">
+                                            <button class="btn btn-danger btn-add-to-cart" style="background-color:red" type="submit">
+                                                @if (product.Available == false)
+                                                {
+
+                                                    <span>Hết hàng</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Thêm vào giỏ</span>
+                                                }
+                                            </button>
+
+                                        </a>
+                                        <a class="LikeAnchor">
+                                            <input type="hidden" value="@product.Id" class="ProductID" class="form-control text-center" style="width:40px; padding: 0; margin-left:18px;">
+
+
+                                            <button class="btn btn-primary btn-heart" style="background-color:red; border-color:red;border-radius:5px;">
+                                                <i class="fa fa-heart">
+                                                </i>
+                                            </button>
+                                        </a>
+
+                                    </div>
+
+                                    <style>
+                                        .btn-heart {
+                                            opacity: 0.7;
+                                        }
+                                    </style>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js">
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.LikeAnchor').click(function () {
+                var self = $(this);
+                $.ajax({
+                    url: 'Like',
+                    data: {
+                        id: self.find('.ProductID').val()
+                    },
+                    success: function (res) {
+                        console.log(res.msg)
+                        alert(res.msg)
+                        console.log(self.find('.ProductID').val());
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        var myIndex = 0;
+        carousel();
+
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            myIndex++;
+            if (myIndex > x.length) { myIndex = 1 }
+            x[myIndex - 1].style.display = "block";
+            setTimeout(carousel, 9000);
+        }
+    </script>
+
+    <script>
+        var btnHeart = document.getElementsByClassName('btn-heart');
+        for (let i = 0; i < btnHeart.length; i++) {
+            let btn = btnHeart[i];
+            btn.addEventListener('click', function () {
+                var opacity = btn.style.opacity;
+                if (opacity != 1) btn.style.opacity = '1';
+                else btn.style.opacity = '0.7'
+            })
+        }
+
+    </script>
+
+}

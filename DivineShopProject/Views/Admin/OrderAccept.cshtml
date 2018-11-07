@@ -1,0 +1,127 @@
+﻿@using DivineShopProject.Models
+@model IEnumerable<Order>
+@using Microsoft.AspNetCore.Http;
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+    #top-links {
+        height: 80px !important;
+        margin-right: 150px;
+        padding-bottom: 80px !important;
+    }
+
+    ul {
+        list-style: none
+    }
+</style>
+<ul id="listproduct" class="tabs clearfix" style="list-style:none;">
+    <li class="active"><a href="#" class="btn btn-default btn-lg disable" style="background-color:black;color:yellow">@ViewBag.Title</a></li>
+</ul>
+<style>
+    #paging-number.pagination a {
+        width: 30px !important;
+        height: 30px !important;
+        line-height: 15px !important;
+        text-align: center;
+    }
+
+    #listproduct {
+        font-size: 50px;
+        color: yellow;
+        margin-left: 34%;
+    }
+</style>
+<div id="top-links" class="nav pull-right flip">
+    <ul style="color:white;" class="font-italic">
+        @if (Context.Session.GetString("Admin") != null)
+        {
+            <li>
+                Welcome,<font color="yellow">
+                    @Context.Session.GetString("Admin")
+                </font>
+            </li>
+            <li>
+                <a asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+            </li>
+
+        }
+    </ul>
+</div>
+<table border="1" style="border-color:white;color:silver;width:800px; text-align: center;margin-top:100px;margin-left:150px;" class="tblProduct">
+    <thead>
+        <tr style="background-color: rgba(100, 100, 100, 0.6)">
+            <th>
+                Mã Giỏ Hàng
+            </th>
+            <th>
+                Mã Khách Hàng
+            </th>
+            <th>
+                Tên Khách Hàng
+            </th>
+            <th>
+                Số Điện thoại
+            </th>
+            <th>
+                Card Serial Number
+            </th>
+            <th style="text-align: right">
+                Đơn giá
+            </th>
+            <th style="text-align: center">
+                Đang giao
+            </th>
+            <th style="text-align: center">
+                Chấp nhận đơn hàng
+            </th>
+            <th style="text-align: center">
+                Hủy đơn hàng
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <form asp-action="Update" asp-controller="Product">
+                <tr>
+                    <td>
+                        @order.OrderId
+                    </td>
+                    <td>
+                        @order.CustomerId
+                    </td>
+                    <td>
+                        @order.Fullname
+                    </td>
+                    <td>
+                        @order.Phone
+                    </td>
+                    <td>
+                        @order.CardSerialNumber
+                    </td>
+                    <td>
+                        @order.Price
+                    </td>
+                    <td>
+                        @if (order.Accept == false)
+                        {
+                            <span>Chưa xử lý</span>
+                        }
+                        else
+                        {
+                            <span>Đang xử lý</span>
+                        }
+                    </td>
+
+                    <td><a class="btn btn-info" asp-area="" asp-controller="Admin" asp-action="Accept" asp-route-id="@order.OrderId">Accept</a></td>
+                    <td><a class="btn btn-info" asp-area="" asp-controller="Admin" asp-action="DeleteAccept" asp-route-id="@order.OrderId">X</a></td>
+
+                </tr>
+            </form>
+        }
+    </tbody>
+</table>

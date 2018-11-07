@@ -1,0 +1,99 @@
+﻿@using DivineShopProject.Models
+@model DivineShopProject.Models.Category;
+@using Microsoft.AspNetCore.Http;
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+    #top-links {
+        height: 80px !important;
+        margin-right: 150px;
+        padding-bottom: 80px !important;
+    }
+
+    ul {
+        list-style: none
+    }
+</style>
+<ul id="listproduct" class="tabs clearfix" style="list-style:none">
+    <li class="active">
+        <a href="#" class="btn btn-default btn-lg disable" style="background-color:black;color:yellow">
+            @ViewBag.Title
+        </a>
+    </li>
+</ul>
+<div id="top-links" class="nav pull-right flip">
+    <ul style="color:white;" class="font-italic">
+        @if (Context.Session.GetString("Admin") != null)
+        {
+            <li>
+                Welcome,<font color="yellow">
+                    @Context.Session.GetString("Admin")
+                </font>
+            </li>
+            <li>
+                <a asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+            </li>
+
+        }
+    </ul>
+</div>
+<style>
+    #paging-number.pagination a {
+        width: 30px !important;
+        height: 30px !important;
+        line-height: 15px !important;
+        text-align: center;
+    }
+
+    #listproduct {
+        font-size: 50px;
+        color: yellow;
+        margin-left: 40%;
+    }
+
+    textarea {
+        over
+    }
+</style>
+<form asp-action="AddNewCategory" asp-controller="Admin" method="POST">
+    <table border="1" style="border-color:white;color:silver;width:800px; text-align: center;margin-top:100px;margin-left:150px;" class="tblProduct">
+        <thead>
+            <tr style="background-color: rgba(100, 100, 100, 0.6)">
+                @*<th style="text-align:center">
+                        Field
+                    </th>
+                    <th style="text-align:center">
+                        Fill Out
+                    </th>*@
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Tên phân loại
+                </td>
+                <td>
+                    <input asp-for="CategoryName" required style="background-color:black;border-radius:5px" />
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <div style="margin-left:830px;margin-top:10px">
+        <button class="btn btn-info">Add Category</button>
+    </div>
+
+
+
+
+
+
+</form>
+
+
+
